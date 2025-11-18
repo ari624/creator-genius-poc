@@ -251,3 +251,42 @@ CREATE TABLE bp_knowledge_references (
   reference_type TEXT,
   created_at TIMESTAMP DEFAULT NOW()
 );
+
+CREATE TABLE bp_client_intake (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  project_id UUID REFERENCES bp_projects(id) ON DELETE CASCADE UNIQUE,
+  first_name TEXT,
+  last_name TEXT,
+  phone TEXT,
+  email TEXT,
+  company TEXT,
+  business_overview TEXT,
+  primary_goals TEXT[],
+  key_metrics TEXT,
+  demographics TEXT,
+  psychographics TEXT,
+  customer_journey TEXT,
+  common_challenges TEXT,
+  brand_personality TEXT,
+  tone_voice TEXT,
+  unique_value TEXT,
+  visual_guidelines TEXT,
+  current_platforms JSONB,
+  resonating_content TEXT,
+  main_competitors TEXT[],
+  doing_well_accounts TEXT,
+  admired_brands TEXT,
+  comfortable_featuring_people TEXT,
+  upcoming_campaigns TEXT,
+  primary_keywords TEXT[],
+  secondary_keywords TEXT,
+  seo_goals TEXT,
+  current_challenges TEXT,
+  expectations TEXT,
+  completion_percentage INTEGER DEFAULT 0,
+  status TEXT DEFAULT 'draft',
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE INDEX idx_client_intake_project ON bp_client_intake(project_id);

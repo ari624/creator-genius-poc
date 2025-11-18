@@ -214,6 +214,43 @@ export interface BPBlueprint {
   updated_at: string;
 }
 
+export interface BPClientIntake {
+  id: string;
+  project_id: string;
+  first_name?: string;
+  last_name?: string;
+  phone?: string;
+  email?: string;
+  company?: string;
+  business_overview?: string;
+  primary_goals?: string[];
+  key_metrics?: string;
+  demographics?: string;
+  psychographics?: string;
+  customer_journey?: string;
+  common_challenges?: string;
+  brand_personality?: string;
+  tone_voice?: string;
+  unique_value?: string;
+  visual_guidelines?: string;
+  current_platforms?: Record<string, { followers: number; engagement: string }>;
+  resonating_content?: string;
+  main_competitors?: string[];
+  doing_well_accounts?: string;
+  admired_brands?: string;
+  comfortable_featuring_people?: string;
+  upcoming_campaigns?: string;
+  primary_keywords?: string[];
+  secondary_keywords?: string;
+  seo_goals?: string;
+  current_challenges?: string;
+  expectations?: string;
+  completion_percentage: number;
+  status: string;
+  created_at: string;
+  updated_at: string;
+}
+
 // ============================================================================
 // SHARED TYPES
 // ============================================================================
