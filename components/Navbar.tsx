@@ -12,52 +12,52 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="gradient-primary sticky top-0 z-50 shadow-lg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+    <nav className="gradient-primary sticky top-0 z-50 shadow-elegant-xl">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="text-2xl font-bold text-white">
+          <Link href="/" className="flex items-center space-x-3 hover-scale">
+            <div className="text-3xl font-bold text-white">
               🎓 Creator Genius Platform
             </div>
           </Link>
 
           {/* Navigation Links */}
-          <div className="flex items-center space-x-1">
+          <div className="flex items-center space-x-2">
             <Link
               href="/manual"
-              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all ${
+              className={`flex items-center space-x-2 px-6 py-3 rounded-xl text-lg transition-all ${
                 isActive('/manual')
-                  ? 'bg-white/20 text-white'
-                  : 'text-white/80 hover:bg-white/10 hover:text-white'
+                  ? 'bg-white/20 text-white font-semibold'
+                  : 'text-white/90 hover:bg-white/10 hover:text-white font-medium'
               }`}
             >
-              <BookOpen className="w-5 h-5" />
-              <span className="font-medium">Social Media Manual</span>
+              <BookOpen className="w-6 h-6" />
+              <span>Social Media Manual</span>
             </Link>
 
             <Link
               href="/clients"
-              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all ${
+              className={`flex items-center space-x-2 px-6 py-3 rounded-xl text-lg transition-all ${
                 isActive('/clients')
-                  ? 'bg-white/20 text-white'
-                  : 'text-white/80 hover:bg-white/10 hover:text-white'
+                  ? 'bg-white/20 text-white font-semibold'
+                  : 'text-white/90 hover:bg-white/10 hover:text-white font-medium'
               }`}
             >
-              <Users className="w-5 h-5" />
-              <span className="font-medium">Client Analyzer</span>
+              <Users className="w-6 h-6" />
+              <span>Client Analyzer</span>
             </Link>
 
             <Link
               href="/blueprints"
-              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all ${
+              className={`flex items-center space-x-2 px-6 py-3 rounded-xl text-lg transition-all ${
                 isActive('/blueprints')
-                  ? 'bg-white/20 text-white'
-                  : 'text-white/80 hover:bg-white/10 hover:text-white'
+                  ? 'bg-white/20 text-white font-semibold'
+                  : 'text-white/90 hover:bg-white/10 hover:text-white font-medium'
               }`}
             >
-              <FileText className="w-5 h-5" />
-              <span className="font-medium">Blueprint Generator</span>
+              <FileText className="w-6 h-6" />
+              <span>Blueprint Generator</span>
             </Link>
           </div>
         </div>
