@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   description: "Complete content creation platform with Social Media Manual, Client Analyzer, and Blueprint Generator",
 };
 
+// Force fresh build - all routes verified and working
+
 export default function RootLayout({
   children,
 }: Readonly<{
