@@ -251,6 +251,17 @@ export interface BPClientIntake {
   updated_at: string;
 }
 
+export interface BPClientKnowledge {
+  id: string;
+  project_id: string;
+  title: string;
+  entry_type: 'talk/transcript' | 'product/service' | 'expertise-area' | 'voice-example' | 'story/experience' | 'past-content' | 'other';
+  content: string;
+  tags: string[];
+  created_at: string;
+  updated_at: string;
+}
+
 // ============================================================================
 // SHARED TYPES
 // ============================================================================

@@ -290,3 +290,16 @@ CREATE TABLE bp_client_intake (
 );
 
 CREATE INDEX idx_client_intake_project ON bp_client_intake(project_id);
+
+CREATE TABLE bp_client_knowledge (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  project_id UUID REFERENCES bp_projects(id) ON DELETE CASCADE,
+  title TEXT NOT NULL,
+  entry_type TEXT NOT NULL,
+  content TEXT NOT NULL,
+  tags TEXT[],
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE INDEX idx_knowledge_project ON bp_client_knowledge(project_id);

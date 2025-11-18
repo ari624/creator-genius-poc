@@ -10,6 +10,7 @@ import {
   ClipboardList,
   CheckCircle2,
   Clock,
+  Database,
 } from 'lucide-react';
 
 export default async function ProjectPage({ params }: { params: Promise<{ projectId: string }> }) {
@@ -85,6 +86,22 @@ export default async function ProjectPage({ params }: { params: Promise<{ projec
             <h3 className="font-semibold text-text-dark mb-2 text-lg">Brand Overview</h3>
             <p className="text-sm text-text-medium">
               Define niche, audience, voice, and brand identity
+            </p>
+          </div>
+        </Link>
+
+        {/* Client Knowledge Base */}
+        <Link href={`/blueprints/${projectId}/knowledge`}>
+          <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all cursor-pointer border-2 border-transparent hover:border-purple-light h-full">
+            <div className="flex items-center justify-between mb-4">
+              <Database className="w-8 h-8 text-purple-medium" />
+              <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">
+                New
+              </span>
+            </div>
+            <h3 className="font-semibold text-text-dark mb-2 text-lg">Client Knowledge Base</h3>
+            <p className="text-sm text-text-medium">
+              Store client talks, products, stories, and expertise
             </p>
           </div>
         </Link>
