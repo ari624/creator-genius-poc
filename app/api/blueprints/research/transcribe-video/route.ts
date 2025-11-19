@@ -2,10 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
 import OpenAI from 'openai';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
 // POST - Transcribe a single video for a project
 export async function POST(req: NextRequest) {
   try {
@@ -40,6 +36,11 @@ export async function POST(req: NextRequest) {
         { status: 500 }
       );
     }
+
+    // Initialize OpenAI client
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
 
     // Download the video/audio file
     let audioBuffer;
