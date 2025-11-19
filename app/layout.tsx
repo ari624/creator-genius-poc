@@ -17,9 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">
+      <body className="antialiased bg-gray-50">
         <Navbar />
-        <main className="min-h-screen bg-background-light">
+        <main className="min-h-screen">
           {children}
         </main>
         <Toaster position="top-right" richColors />
