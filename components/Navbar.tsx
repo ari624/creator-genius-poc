@@ -25,9 +25,9 @@ export default function Navbar() {
           {/* Navigation Links */}
           <div className="flex items-center space-x-2">
             <Link
-              href="/manual"
+              href="/social-media-manual"
               className={`flex items-center space-x-2 px-6 py-3 rounded-xl text-lg transition-all ${
-                isActive('/manual')
+                isActive('/social-media-manual')
                   ? 'bg-white/20 text-white font-semibold'
                   : 'text-white/90 hover:bg-white/10 hover:text-white font-medium'
               }`}
@@ -37,9 +37,9 @@ export default function Navbar() {
             </Link>
 
             <Link
-              href="/clients"
+              href="/client-analyzer"
               className={`flex items-center space-x-2 px-6 py-3 rounded-xl text-lg transition-all ${
-                isActive('/clients')
+                isActive('/client-analyzer')
                   ? 'bg-white/20 text-white font-semibold'
                   : 'text-white/90 hover:bg-white/10 hover:text-white font-medium'
               }`}
