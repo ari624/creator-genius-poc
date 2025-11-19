@@ -120,10 +120,19 @@ Return ONLY valid JSON, no additional text.`;
       brand_overview: brandOverview,
       project,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error generating brand overview:', error);
+
+    // Check if it's an API key error
+    if (error.message?.includes('ANTHROPIC_API_KEY')) {
+      return NextResponse.json(
+        { error: 'Anthropic API key not configured. Please add ANTHROPIC_API_KEY to your Vercel environment variables.' },
+        { status: 500 }
+      );
+    }
+
     return NextResponse.json(
-      { error: 'Failed to generate brand overview' },
+      { error: error.message || 'Failed to generate brand overview' },
       { status: 500 }
     );
   }

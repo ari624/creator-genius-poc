@@ -1,11 +1,5 @@
 import Anthropic from '@anthropic-ai/sdk';
 
-const apiKey = process.env.ANTHROPIC_API_KEY || '';
-
-export const anthropic = new Anthropic({
-  apiKey,
-});
-
 export const CLAUDE_MODEL = 'claude-sonnet-4-20250514';
 
 // Helper function to create a message with Claude
@@ -14,7 +8,15 @@ export async function createClaudeMessage(
   systemPrompt?: string,
   maxTokens: number = 4096
 ) {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+
+  if (!apiKey) {
+    throw new Error('ANTHROPIC_API_KEY environment variable is not set. Please add it to your Vercel environment variables.');
+  }
+
   try {
+    const anthropic = new Anthropic({ apiKey });
+
     const response = await anthropic.messages.create({
       model: CLAUDE_MODEL,
       max_tokens: maxTokens,
@@ -42,7 +44,15 @@ export async function streamClaudeMessage(
   onChunk?: (text: string) => void,
   maxTokens: number = 4096
 ) {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+
+  if (!apiKey) {
+    throw new Error('ANTHROPIC_API_KEY environment variable is not set. Please add it to your Vercel environment variables.');
+  }
+
   try {
+    const anthropic = new Anthropic({ apiKey });
+
     const stream = await anthropic.messages.create({
       model: CLAUDE_MODEL,
       max_tokens: maxTokens,
