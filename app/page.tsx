@@ -18,7 +18,7 @@ export default function HomePage() {
       {/* Three Systems */}
       <div className="grid md:grid-cols-3 gap-10 mb-20">
         {/* System 1: Social Media Manual */}
-        <Link href="/manual" className="group">
+        <Link href="/social-media-manual" className="group">
           <div className="bg-white rounded-2xl p-10 shadow-xl hover:shadow-2xl transition-all duration-300 h-full border-2 border-transparent hover:border-purple-light hover-lift">
             <div className="flex items-center justify-center w-20 h-20 rounded-2xl gradient-primary mb-8">
               <BookOpen className="w-10 h-10 text-white" />
@@ -37,7 +37,7 @@ export default function HomePage() {
         </Link>
 
         {/* System 2: Client Analyzer */}
-        <Link href="/clients" className="group">
+        <Link href="/client-analyzer" className="group">
           <div className="bg-white rounded-2xl p-10 shadow-xl hover:shadow-2xl transition-all duration-300 h-full border-2 border-transparent hover:border-purple-light hover-lift">
             <div className="flex items-center justify-center w-20 h-20 rounded-2xl gradient-primary mb-8">
               <Users className="w-10 h-10 text-white" />
