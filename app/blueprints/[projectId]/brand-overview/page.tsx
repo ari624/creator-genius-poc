@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, FileText } from 'lucide-react';
+import { ArrowLeft, FileText } from '@/components/Icon';
 
 export default function BrandOverviewPage() {
   const params = useParams();

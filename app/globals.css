@@ -46,6 +46,10 @@ button {
   font-family: inherit;
 }
 
+.text-white {
+  color: white;
+}
+
 /* Gradient Backgrounds */
 .gradient-primary {
   background: linear-gradient(135deg, #8B7CF6 0%, #6D5ACF 50%, #553C9A 100%);

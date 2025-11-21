@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, Lightbulb } from 'lucide-react';
+import { ArrowLeft, Lightbulb } from '@/components/Icon';
 
 export default function ContentIdeasPage() {
   const params = useParams();

@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, Download } from 'lucide-react';
+import { ArrowLeft, Download } from '@/components/Icon';
 
 export default function ExportPage() {
   const params = useParams();

@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useMotionValue, useTransform, PanInfo } from 'framer-motion';
-import { Check, X, Edit, Package } from 'lucide-react';
+import { Check, X, Edit, Package } from '@/components/Icon';
 import { BPContentIdea } from '@/lib/types';
 
 interface ContentIdeaCardProps {

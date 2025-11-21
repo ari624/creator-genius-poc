@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, Settings } from 'lucide-react';
+import { ArrowLeft, Settings } from '@/components/Icon';
 
 export default function ProjectSettingsPage() {
   const params = useParams();

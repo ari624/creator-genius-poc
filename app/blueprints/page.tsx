@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Plus, FolderOpen, Sparkles, Lightbulb, FileText, Download, ArrowRight } from 'lucide-react';
+import { Plus, FolderOpen, Sparkles, Lightbulb, FileText, Download, ArrowRight } from '@/components/Icon';
 
 export default function BlueprintsPage() {
   return (

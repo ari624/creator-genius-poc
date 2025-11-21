@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Video, FileText, Search, Download, Sparkles, Zap } from 'lucide-react';
+import { Video, FileText, Search, Download, Sparkles, Zap } from '@/components/Icon';
 import { useEffect, useState } from 'react';
 
 export default function ManualPage() {

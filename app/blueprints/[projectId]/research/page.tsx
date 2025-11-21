@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, Upload } from 'lucide-react';
+import { ArrowLeft, Upload } from '@/components/Icon';
 
 export default function ResearchPage() {
   const params = useParams();

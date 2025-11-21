@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { Save, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Save, Sparkles, CheckCircle2 } from '@/components/Icon';
 import { toast } from 'sonner';
 
 interface IntakeFormData {

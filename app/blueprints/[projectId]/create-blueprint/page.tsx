@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, FileEdit } from 'lucide-react';
+import { ArrowLeft, FileEdit } from '@/components/Icon';
 
 export default function CreateBlueprintPage() {
   const params = useParams();

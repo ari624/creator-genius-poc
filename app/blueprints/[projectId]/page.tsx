@@ -11,7 +11,7 @@ import {
   CheckCircle2,
   Clock,
   Database,
-} from 'lucide-react';
+} from '@/components/Icon';
 
 export default async function ProjectPage({ params }: { params: Promise<{ projectId: string }> }) {
   const { projectId } = await params;

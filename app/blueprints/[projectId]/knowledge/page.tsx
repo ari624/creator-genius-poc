@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import { BPClientKnowledge } from '@/lib/types';
-import { Plus, Search, Edit2, Trash2, X, Tag as TagIcon } from 'lucide-react';
+import { Plus, Search, Edit2, Trash2, X, Tag as TagIcon } from '@/components/Icon';
 import { toast } from 'sonner';
 
 const ENTRY_TYPES = [

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Plus, Users, TrendingUp, Eye, Target, Sparkles, ArrowRight } from 'lucide-react';
+import { Plus, Users, TrendingUp, Eye, Target, Sparkles, ArrowRight } from '@/components/Icon';
 
 export default function ClientsPage() {
   return (
