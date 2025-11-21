@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import { Toaster } from "sonner";
+import { Toaster } from "@/lib/toast";
 
 export const metadata: Metadata = {
   title: "Creator Genius Platform",
@@ -17,12 +17,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">
+      <body style={{ WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale' }}>
         <Navbar />
-        <main className="min-h-screen bg-background-light">
+        <main style={{ minHeight: '100vh', background: 'var(--background)' }}>
           {children}
         </main>
-        <Toaster position="top-right" richColors />
+        <Toaster />
       </body>
     </html>
   );

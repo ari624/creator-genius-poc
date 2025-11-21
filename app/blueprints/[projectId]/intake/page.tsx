@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { Save, Sparkles, CheckCircle2 } from '@/components/Icon';
-import { toast } from 'sonner';
+import { toast } from '@/lib/toast';
 
 interface IntakeFormData {
   // Contact Information

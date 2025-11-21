@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import { BPClientKnowledge } from '@/lib/types';
 import { Plus, Search, Edit2, Trash2, X, Tag as TagIcon } from '@/components/Icon';
-import { toast } from 'sonner';
+import { toast } from '@/lib/toast';
 
 const ENTRY_TYPES = [
   { value: 'talk/transcript', label: 'Talk/Transcript', color: 'bg-blue-100 text-blue-700' },

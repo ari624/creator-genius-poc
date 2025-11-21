@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Copy, Check } from '@/components/Icon';
-import { toast } from 'sonner';
+import { toast } from '@/lib/toast';
 
 interface CodeBlockProps {
   code: string;
