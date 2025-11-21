@@ -1,4 +1,8 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import {
   FileText,
   Upload,
@@ -9,166 +13,239 @@ import {
   Download,
   ClipboardList,
   CheckCircle2,
-  Clock,
+  Circle,
+  ArrowRight,
   Database,
+  Sparkles,
 } from 'lucide-react';
 
-export default async function ProjectPage({ params }: { params: Promise<{ projectId: string }> }) {
-  const { projectId } = await params;
+interface Project {
+  id: string;
+  name: string;
+  client_name: string | null;
+  industry: string | null;
+  status: string;
+}
 
-  // This would normally fetch project data from the database
-  const projectName = 'Sample Project';
+export default function ProjectPage() {
+  const params = useParams();
+  const projectId = params.projectId as string;
+  const [project, setProject] = useState<Project | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadProject();
+  }, [projectId]);
+
+  const loadProject = async () => {
+    try {
+      const response = await fetch(`/api/blueprints/projects`);
+      const result = await response.json();
+      if (result.success) {
+        const found = result.projects?.find((p: Project) => p.id === projectId);
+        setProject(found || null);
+      }
+    } catch (error) {
+      console.error('Error loading project:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-600"></div>
+      </div>
+    );
+  }
 
   return (
-    <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16">
-      <div className="mb-12">
-        <h1 className="text-5xl font-bold text-text-dark mb-3">{projectName}</h1>
-        <p className="text-xl text-gray-600">Blueprint Generator Project Dashboard</p>
-      </div>
-
-      {/* Workflow Progress */}
-      <div className="bg-white rounded-2xl p-10 shadow-xl mb-12">
-        <h2 className="text-3xl font-bold text-text-dark mb-8">Production Workflow</h2>
-        <div className="grid md:grid-cols-4 gap-8">
-          <div className="text-center">
-            <div className="w-16 h-16 rounded-full gradient-primary text-white flex items-center justify-center mx-auto mb-4">
-              <CheckCircle2 className="w-8 h-8" />
-            </div>
-            <h3 className="font-bold text-text-dark mb-2 text-lg">Client Intake</h3>
-            <p className="text-base text-gray-600">Gather information</p>
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="gradient-hero border-b border-purple-100">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12">
+          <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
+            <Link href="/blueprints" className="hover:text-purple-600">Projects</Link>
+            <span>/</span>
+            <span className="text-gray-900 font-medium">{project?.name || 'Project'}</span>
           </div>
-          <div className="text-center">
-            <div className="w-16 h-16 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center mx-auto mb-4">
-              <Clock className="w-8 h-8" />
-            </div>
-            <h3 className="font-bold text-text-dark mb-2 text-lg">Brand Overview</h3>
-            <p className="text-base text-gray-600">Define brand & audience</p>
-          </div>
-          <div className="text-center">
-            <div className="w-16 h-16 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center mx-auto mb-4">
-              <Clock className="w-8 h-8" />
-            </div>
-            <h3 className="font-bold text-text-dark mb-2 text-lg">Content Ideas</h3>
-            <p className="text-base text-gray-600">Generate & review</p>
-          </div>
-          <div className="text-center">
-            <div className="w-16 h-16 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center mx-auto mb-4">
-              <Clock className="w-8 h-8" />
-            </div>
-            <h3 className="font-bold text-text-dark mb-2 text-lg">Blueprints</h3>
-            <p className="text-base text-gray-600">Full production</p>
-          </div>
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+            {project?.name || 'Project Dashboard'}
+          </h1>
+          {project?.client_name && (
+            <p className="text-lg text-gray-600">Client: {project.client_name}</p>
+          )}
         </div>
       </div>
 
-      {/* Quick Actions */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {/* Client Intake */}
-        <Link href={`/blueprints/${projectId}/intake`}>
-          <div className="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all cursor-pointer border-2 border-transparent hover:border-purple-light h-full hover-lift">
-            <div className="flex items-center justify-between mb-6">
-              <ClipboardList className="w-10 h-10 text-purple-medium" />
-              <span className="px-4 py-1.5 bg-green-100 text-green-700 rounded-full text-sm font-semibold">
-                New
-              </span>
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-10">
+
+        {/* Step-by-Step Workflow */}
+        <div className="bg-white rounded-2xl p-8 shadow-elegant-lg border border-gray-100 mb-10">
+          <div className="flex items-center gap-3 mb-6">
+            <Sparkles className="w-6 h-6 text-purple-600" />
+            <h2 className="text-2xl font-bold text-gray-900">Getting Started - Follow These Steps</h2>
+          </div>
+
+          <div className="space-y-4">
+            {/* Step 1 */}
+            <Link href={`/blueprints/${projectId}/intake`}>
+              <div className="flex items-center gap-4 p-5 rounded-xl border-2 border-purple-200 bg-purple-50 hover:bg-purple-100 transition-colors cursor-pointer group">
+                <div className="w-10 h-10 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold">
+                  1
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-bold text-gray-900 text-lg">Complete Client Intake Form</h3>
+                  <p className="text-gray-600 text-sm">Answer 27 questions about your client's business, audience, and goals</p>
+                </div>
+                <ArrowRight className="w-5 h-5 text-purple-600 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </Link>
+
+            {/* Step 2 */}
+            <Link href={`/blueprints/${projectId}/research`}>
+              <div className="flex items-center gap-4 p-5 rounded-xl border border-gray-200 hover:border-purple-200 hover:bg-purple-50 transition-colors cursor-pointer group">
+                <div className="w-10 h-10 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center font-bold">
+                  2
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-bold text-gray-900 text-lg">Upload ViralFindr Research</h3>
+                  <p className="text-gray-600 text-sm">Upload your Excel/CSV file with competitor video data for this client's niche</p>
+                </div>
+                <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-purple-600 group-hover:translate-x-1 transition-all" />
+              </div>
+            </Link>
+
+            {/* Step 3 */}
+            <Link href={`/blueprints/${projectId}/brand-overview`}>
+              <div className="flex items-center gap-4 p-5 rounded-xl border border-gray-200 hover:border-purple-200 hover:bg-purple-50 transition-colors cursor-pointer group">
+                <div className="w-10 h-10 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center font-bold">
+                  3
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-bold text-gray-900 text-lg">Generate Brand Overview</h3>
+                  <p className="text-gray-600 text-sm">AI creates a comprehensive brand profile from your intake data</p>
+                </div>
+                <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-purple-600 group-hover:translate-x-1 transition-all" />
+              </div>
+            </Link>
+
+            {/* Step 4 */}
+            <Link href={`/blueprints/${projectId}/ideas`}>
+              <div className="flex items-center gap-4 p-5 rounded-xl border border-gray-200 hover:border-purple-200 hover:bg-purple-50 transition-colors cursor-pointer group">
+                <div className="w-10 h-10 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center font-bold">
+                  4
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-bold text-gray-900 text-lg">Generate Content Ideas</h3>
+                  <p className="text-gray-600 text-sm">AI generates content ideas based on research and brand profile</p>
+                </div>
+                <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-purple-600 group-hover:translate-x-1 transition-all" />
+              </div>
+            </Link>
+
+            {/* Step 5 */}
+            <Link href={`/blueprints/${projectId}/create-blueprint`}>
+              <div className="flex items-center gap-4 p-5 rounded-xl border border-gray-200 hover:border-purple-200 hover:bg-purple-50 transition-colors cursor-pointer group">
+                <div className="w-10 h-10 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center font-bold">
+                  5
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-bold text-gray-900 text-lg">Create Full Blueprints</h3>
+                  <p className="text-gray-600 text-sm">Generate complete scripts, captions, and B-roll prompts for each idea</p>
+                </div>
+                <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-purple-600 group-hover:translate-x-1 transition-all" />
+              </div>
+            </Link>
+          </div>
+        </div>
+
+        {/* Quick Access Cards */}
+        <h2 className="text-xl font-bold text-gray-900 mb-6">All Tools</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          {/* Client Intake */}
+          <Link href={`/blueprints/${projectId}/intake`}>
+            <div className="bg-white rounded-2xl p-6 shadow-elegant-lg hover:shadow-elegant-xl transition-all cursor-pointer border border-gray-100 hover:border-purple-200 h-full group">
+              <ClipboardList className="w-10 h-10 text-purple-600 mb-4 group-hover:scale-110 transition-transform" />
+              <h3 className="font-bold text-gray-900 mb-2 text-lg">Client Intake Form</h3>
+              <p className="text-gray-600 text-sm">27-question form to gather all client information</p>
             </div>
-            <h3 className="font-bold text-text-dark mb-3 text-2xl">Client Intake Form</h3>
-            <p className="text-base text-gray-600 leading-relaxed">
-              Comprehensive 27-question form to gather all client information
-            </p>
-          </div>
-        </Link>
+          </Link>
 
-        {/* Brand Overview */}
-        <Link href={`/blueprints/${projectId}/brand-overview`}>
-          <div className="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all cursor-pointer border-2 border-transparent hover:border-purple-light h-full hover-lift">
-            <FileText className="w-10 h-10 text-purple-medium mb-6" />
-            <h3 className="font-bold text-text-dark mb-3 text-2xl">Brand Overview</h3>
-            <p className="text-base text-gray-600 leading-relaxed">
-              Define niche, audience, voice, and brand identity
-            </p>
-          </div>
-        </Link>
-
-        {/* Client Knowledge Base */}
-        <Link href={`/blueprints/${projectId}/knowledge`}>
-          <div className="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all cursor-pointer border-2 border-transparent hover:border-purple-light h-full hover-lift">
-            <div className="flex items-center justify-between mb-6">
-              <Database className="w-10 h-10 text-purple-medium" />
-              <span className="px-4 py-1.5 bg-green-100 text-green-700 rounded-full text-sm font-semibold">
-                New
-              </span>
+          {/* Research Data */}
+          <Link href={`/blueprints/${projectId}/research`}>
+            <div className="bg-white rounded-2xl p-6 shadow-elegant-lg hover:shadow-elegant-xl transition-all cursor-pointer border border-gray-100 hover:border-purple-200 h-full group">
+              <Upload className="w-10 h-10 text-purple-600 mb-4 group-hover:scale-110 transition-transform" />
+              <h3 className="font-bold text-gray-900 mb-2 text-lg">ViralFindr Upload</h3>
+              <p className="text-gray-600 text-sm">Upload competitor research for this client's niche</p>
             </div>
-            <h3 className="font-bold text-text-dark mb-3 text-2xl">Client Knowledge Base</h3>
-            <p className="text-base text-gray-600 leading-relaxed">
-              Store client talks, products, stories, and expertise
-            </p>
-          </div>
-        </Link>
+          </Link>
 
-        {/* Research Data */}
-        <Link href={`/blueprints/${projectId}/research`}>
-          <div className="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all cursor-pointer border-2 border-transparent hover:border-purple-light h-full hover-lift">
-            <Upload className="w-10 h-10 text-purple-medium mb-6" />
-            <h3 className="font-bold text-text-dark mb-3 text-2xl">Research Data</h3>
-            <p className="text-base text-gray-600 leading-relaxed">
-              Upload ViralFindr data or manual research
-            </p>
-          </div>
-        </Link>
+          {/* Brand Overview */}
+          <Link href={`/blueprints/${projectId}/brand-overview`}>
+            <div className="bg-white rounded-2xl p-6 shadow-elegant-lg hover:shadow-elegant-xl transition-all cursor-pointer border border-gray-100 hover:border-purple-200 h-full group">
+              <FileText className="w-10 h-10 text-purple-600 mb-4 group-hover:scale-110 transition-transform" />
+              <h3 className="font-bold text-gray-900 mb-2 text-lg">Brand Overview</h3>
+              <p className="text-gray-600 text-sm">AI-generated brand profile and strategy</p>
+            </div>
+          </Link>
 
-        {/* Content Ideas */}
-        <Link href={`/blueprints/${projectId}/ideas`}>
-          <div className="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all cursor-pointer border-2 border-transparent hover:border-purple-light h-full hover-lift">
-            <Lightbulb className="w-10 h-10 text-purple-medium mb-6" />
-            <h3 className="font-bold text-text-dark mb-3 text-2xl">Content Ideas</h3>
-            <p className="text-base text-gray-600 leading-relaxed">
-              Generate and review ideas with swipe interface
-            </p>
-          </div>
-        </Link>
+          {/* Knowledge Base */}
+          <Link href={`/blueprints/${projectId}/knowledge`}>
+            <div className="bg-white rounded-2xl p-6 shadow-elegant-lg hover:shadow-elegant-xl transition-all cursor-pointer border border-gray-100 hover:border-purple-200 h-full group">
+              <Database className="w-10 h-10 text-purple-600 mb-4 group-hover:scale-110 transition-transform" />
+              <h3 className="font-bold text-gray-900 mb-2 text-lg">Knowledge Base</h3>
+              <p className="text-gray-600 text-sm">Store client talks, products, and expertise</p>
+            </div>
+          </Link>
 
-        {/* Create Blueprint */}
-        <Link href={`/blueprints/${projectId}/create-blueprint`}>
-          <div className="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all cursor-pointer border-2 border-transparent hover:border-purple-light h-full hover-lift">
-            <FileEdit className="w-10 h-10 text-purple-medium mb-6" />
-            <h3 className="font-bold text-text-dark mb-3 text-2xl">Create Blueprint</h3>
-            <p className="text-base text-gray-600 leading-relaxed">
-              Generate full blueprints with scripts and captions
-            </p>
-          </div>
-        </Link>
+          {/* Content Ideas */}
+          <Link href={`/blueprints/${projectId}/ideas`}>
+            <div className="bg-white rounded-2xl p-6 shadow-elegant-lg hover:shadow-elegant-xl transition-all cursor-pointer border border-gray-100 hover:border-purple-200 h-full group">
+              <Lightbulb className="w-10 h-10 text-purple-600 mb-4 group-hover:scale-110 transition-transform" />
+              <h3 className="font-bold text-gray-900 mb-2 text-lg">Content Ideas</h3>
+              <p className="text-gray-600 text-sm">Generate and review content ideas</p>
+            </div>
+          </Link>
 
-        {/* Blueprint Library */}
-        <Link href={`/blueprints/${projectId}/library`}>
-          <div className="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all cursor-pointer border-2 border-transparent hover:border-purple-light h-full hover-lift">
-            <BookOpen className="w-10 h-10 text-purple-medium mb-6" />
-            <h3 className="font-bold text-text-dark mb-3 text-2xl">Blueprint Library</h3>
-            <p className="text-base text-gray-600 leading-relaxed">View and manage all blueprints</p>
-          </div>
-        </Link>
+          {/* Create Blueprint */}
+          <Link href={`/blueprints/${projectId}/create-blueprint`}>
+            <div className="bg-white rounded-2xl p-6 shadow-elegant-lg hover:shadow-elegant-xl transition-all cursor-pointer border border-gray-100 hover:border-purple-200 h-full group">
+              <FileEdit className="w-10 h-10 text-purple-600 mb-4 group-hover:scale-110 transition-transform" />
+              <h3 className="font-bold text-gray-900 mb-2 text-lg">Create Blueprint</h3>
+              <p className="text-gray-600 text-sm">Full scripts, captions, and B-roll prompts</p>
+            </div>
+          </Link>
 
-        {/* Settings */}
-        <Link href={`/blueprints/${projectId}/settings`}>
-          <div className="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all cursor-pointer border-2 border-transparent hover:border-purple-light h-full hover-lift">
-            <Settings className="w-10 h-10 text-purple-medium mb-6" />
-            <h3 className="font-bold text-text-dark mb-3 text-2xl">Project Settings</h3>
-            <p className="text-base text-gray-600 leading-relaxed">
-              Configure GPT system notes and preferences
-            </p>
-          </div>
-        </Link>
+          {/* Blueprint Library */}
+          <Link href={`/blueprints/${projectId}/library`}>
+            <div className="bg-white rounded-2xl p-6 shadow-elegant-lg hover:shadow-elegant-xl transition-all cursor-pointer border border-gray-100 hover:border-purple-200 h-full group">
+              <BookOpen className="w-10 h-10 text-purple-600 mb-4 group-hover:scale-110 transition-transform" />
+              <h3 className="font-bold text-gray-900 mb-2 text-lg">Blueprint Library</h3>
+              <p className="text-gray-600 text-sm">View all created blueprints</p>
+            </div>
+          </Link>
 
-        {/* Export */}
-        <Link href={`/blueprints/${projectId}/export`}>
-          <div className="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all cursor-pointer border-2 border-transparent hover:border-purple-light h-full hover-lift">
-            <Download className="w-10 h-10 text-purple-medium mb-6" />
-            <h3 className="font-bold text-text-dark mb-3 text-2xl">Export</h3>
-            <p className="text-base text-gray-600 leading-relaxed">
-              Download all deliverables and reports
-            </p>
-          </div>
-        </Link>
+          {/* Export */}
+          <Link href={`/blueprints/${projectId}/export`}>
+            <div className="bg-white rounded-2xl p-6 shadow-elegant-lg hover:shadow-elegant-xl transition-all cursor-pointer border border-gray-100 hover:border-purple-200 h-full group">
+              <Download className="w-10 h-10 text-purple-600 mb-4 group-hover:scale-110 transition-transform" />
+              <h3 className="font-bold text-gray-900 mb-2 text-lg">Export</h3>
+              <p className="text-gray-600 text-sm">Download all deliverables</p>
+            </div>
+          </Link>
+
+          {/* Settings */}
+          <Link href={`/blueprints/${projectId}/settings`}>
+            <div className="bg-white rounded-2xl p-6 shadow-elegant-lg hover:shadow-elegant-xl transition-all cursor-pointer border border-gray-100 hover:border-purple-200 h-full group">
+              <Settings className="w-10 h-10 text-purple-600 mb-4 group-hover:scale-110 transition-transform" />
+              <h3 className="font-bold text-gray-900 mb-2 text-lg">Settings</h3>
+              <p className="text-gray-600 text-sm">Configure project preferences</p>
+            </div>
+          </Link>
+        </div>
       </div>
     </div>
   );
